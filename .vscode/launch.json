@@ -1,0 +1,54 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "MPLV",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "MPLV (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "MPLV (release mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "MPLV (P) SKL purge previous non skl build",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile",
+            "args": [
+                "--cache-sksl",
+                "--purge-persistent-cache"
+            ]
+        },
+        {
+            "name": "MPLV (P) SKL",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile",
+            "args": [
+                "--cache-sksl"
+            ]
+        },
+        {
+            "name": "MPLV (P) SKL json",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile",
+            "args": [
+                "--bundle-sksl-path",
+                "flutter_01.sksl.json"
+            ]
+        }
+    ]
+}
