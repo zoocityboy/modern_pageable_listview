@@ -7,7 +7,7 @@ Developed by 🦏 [zoocityboy][zoocityboy_link]
 [![License: MIT][license_badge]][license_badge_link]
 [![style: zoo lints][badge]][badge_link]
 
-![Modern Pageable ListView](./docs/hero.png)
+![Modern Pageable ListView](./docs/article_hero_1.png)
 
 Sample repository with basic implementation of Modern Pageable ListView builded on top of Bloc library
 
