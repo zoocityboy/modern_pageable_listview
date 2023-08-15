@@ -23,20 +23,20 @@ sealed class PageableListState<T extends Object> extends Equatable {
 }
 
 /// Represents the initial state of a page
-class PagableListInitial<T extends Object> extends PageableListState<T> {
-  /// Creates a new instance of [PagableListInitial].
-  const PagableListInitial({
+class PageableListInitial<T extends Object> extends PageableListState<T> {
+  /// Creates a new instance of [PageableListInitial].
+  const PageableListInitial({
     required super.limit,
   });
 }
 
 /// Represents the loading state of a page
-class PagableListLoading<T extends Object> extends PageableListState<T> {}
+class PageableListLoading<T extends Object> extends PageableListState<T> {}
 
 /// Represents the loaded state of a pages
-class PagableListLoaded<T extends Object> extends PageableListState<T> {
-  /// Creates a new instance of [PagableListLoaded].
-  const PagableListLoaded({
+class PageableListLoaded<T extends Object> extends PageableListState<T> {
+  /// Creates a new instance of [PageableListLoaded].
+  const PageableListLoaded({
     required this.pages,
     required this.totalCount,
   });
@@ -55,9 +55,9 @@ class PagableListLoaded<T extends Object> extends PageableListState<T> {
 }
 
 /// Represents the failure state of a page
-class PagableListFailure<T extends Object> extends PageableListState<T> {
-  /// Creates a new instance of [PagableListFailure].
-  const PagableListFailure({
+class PageableListFailure<T extends Object> extends PageableListState<T> {
+  /// Creates a new instance of [PageableListFailure].
+  const PageableListFailure({
     required this.error,
   });
 

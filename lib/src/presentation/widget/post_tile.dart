@@ -15,7 +15,7 @@ class PostTile extends StatelessWidget {
   /// Page index
   final int page;
 
-  /// indx of item in page data
+  /// index of item in page data
   final int indexOnPage;
 
   /// Content of the post

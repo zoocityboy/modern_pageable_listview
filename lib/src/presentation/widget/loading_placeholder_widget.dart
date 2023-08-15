@@ -6,6 +6,8 @@ import 'post_loading_tile.dart';
 class LoadingPlaceholderWidget extends StatelessWidget {
   /// Loading placeholder used before first request
   const LoadingPlaceholderWidget({required this.count, super.key});
+
+  /// Items count
   final int count;
 
   @override

@@ -10,8 +10,8 @@ import '../mocks.dart';
 
 void main() {
   group('PageableListCubit', () {
-    final fakeCallback = MockLoadCallback<PostEntity>();
-    final cubit = PageableListCubit<PostEntity>(callback: fakeCallback.call);
+    late MockLoadCallback<PostEntity> fakeCallback;
+
     final items = List.generate(100, (_) => PostEntity.fake());
     final successResponse = Pageable<PostEntity>(
       data: items,
@@ -20,13 +20,15 @@ void main() {
     final failureResponse = Exception('Error occurred');
 
     setUp(
-      () {},
+      () {
+        fakeCallback = MockLoadCallback<PostEntity>();
+      },
     );
 
-    tearDown(cubit.close);
-
     test('initial state is PagableListInitial', () {
-      expect(cubit.state, isA<PagableListInitial>());
+      final cubit =
+          PageableListCubit<PostEntity>(apiRequest: fakeCallback.call);
+      expect(cubit.state, isA<PageableListInitial>());
     });
 
     blocTest<PageableListCubit<PostEntity>, PageableListState<PostEntity>>(
@@ -34,14 +36,14 @@ void main() {
       build: () {
         when(() => fakeCallback.call(0, any()))
             .thenAnswer((_) async => successOf(successResponse));
-        return cubit;
+        return PageableListCubit<PostEntity>(apiRequest: fakeCallback.call);
       },
       act: (PageableListCubit<PostEntity> cubit) {
         cubit.initialize();
       },
       expect: () => [
-        PagableListLoading<PostEntity>(),
-        isA<PagableListLoaded<PostEntity>>(),
+        PageableListLoading<PostEntity>(),
+        isA<PageableListLoaded<PostEntity>>(),
       ],
     );
 
@@ -50,14 +52,14 @@ void main() {
       build: () {
         when(() => fakeCallback.call(0, any()))
             .thenAnswer((_) async => failureOf(failureResponse));
-        return cubit;
+        return PageableListCubit<PostEntity>(apiRequest: fakeCallback.call);
       },
       act: (PageableListCubit<PostEntity> cubit) {
         cubit.initialize();
       },
       expect: () => [
-        PagableListLoading<PostEntity>(),
-        PagableListFailure<PostEntity>(error: failureResponse),
+        PageableListLoading<PostEntity>(),
+        PageableListFailure<PostEntity>(error: failureResponse),
       ],
     );
 
@@ -66,14 +68,14 @@ void main() {
       build: () {
         when(() => fakeCallback.call(0, any()))
             .thenAnswer((_) async => successOf(successResponse));
-        return cubit;
+        return PageableListCubit<PostEntity>(apiRequest: fakeCallback.call);
       },
       act: (PageableListCubit<PostEntity> cubit) {
         cubit.reset();
       },
       expect: () => [
-        PagableListLoading<PostEntity>(),
-        isA<PagableListLoaded<PostEntity>>(),
+        PageableListLoading<PostEntity>(),
+        isA<PageableListLoaded<PostEntity>>(),
       ],
     );
   });

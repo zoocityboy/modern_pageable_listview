@@ -6,12 +6,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logging/logging.dart';
 
 import 'src/core/observer.dart';
+import 'src/core/theme.dart';
+import 'src/domain/repositories/contact_repository.dart';
 import 'src/domain/repositories/post_repository.dart';
-import 'src/presentation/pages/test_page.dart';
+import 'src/presentation/pages/contact_page.dart';
 
+final navigatorKey = GlobalKey<NavigatorState>();
 void main() {
   Logger.root.level = Level.ALL;
-
   Logger.root.onRecord.listen((record) {
     debugPrint(
       record.toString(),
@@ -26,42 +28,27 @@ void main() {
   runApp(const MainApp());
 }
 
-final baseLight = ThemeData.light(useMaterial3: true);
-final baseDark = ThemeData.dark(useMaterial3: true);
-
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider<PostRepository>(
-      create: (context) => PostRepository(10000),
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider<PostRepository>(
+          create: (context) => PostRepository(10000),
+        ),
+        RepositoryProvider(
+          create: (context) => ContactRepository(10000),
+        ),
+      ],
       child: Builder(
         builder: (context) {
           return MaterialApp(
+            navigatorKey: navigatorKey,
             home: const TestPage(),
-            theme: baseLight.copyWith(
-              cardTheme: CardTheme(
-                elevation: 1,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  side: BorderSide(
-                    color: baseLight.colorScheme.outlineVariant,
-                  ),
-                ),
-              ),
-            ),
-            darkTheme: baseDark.copyWith(
-              cardTheme: CardTheme(
-                elevation: 1,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  side: BorderSide(
-                    color: baseDark.colorScheme.outlineVariant,
-                  ),
-                ),
-              ),
-            ),
+            theme: lightTheme,
+            darkTheme: darkTheme,
           );
         },
       ),

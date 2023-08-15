@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../pageable/pageable_list_cubit.dart';
+import '../../../domain/typedef/loadcallback.dart';
 
 part 'page_state.dart';
 

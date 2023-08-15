@@ -6,19 +6,19 @@ import '../logic/cubit/page/page_cubit.dart';
 import 'logger.dart';
 
 class ZooBlocObserver extends BlocObserver {
-  @override
-  void onChange(BlocBase bloc, Change change) {
-    if (bloc is PageCubit) {
-      blocLogger.info(
-        'onChange [${bloc.runtimeType}][${bloc.page}] ${change.currentState.runtimeType} -> ${change.nextState.runtimeType}',
-      );
-    } else {
-      blocLogger.info(
-        'onChange [${bloc.runtimeType}] ${change.currentState.runtimeType} -> ${change.nextState.runtimeType}',
-      );
-    }
-    super.onChange(bloc, change);
-  }
+  // @override
+  // void onChange(BlocBase bloc, Change change) {
+  //   if (bloc is PageCubit) {
+  //     blocLogger.info(
+  //       'onChange [${bloc.runtimeType}][${bloc.page}] ${change.currentState.runtimeType} -> ${change.nextState.runtimeType}',
+  //     );
+  //   } else {
+  //     blocLogger.info(
+  //       'onChange [${bloc.runtimeType}] ${change.currentState.runtimeType} -> ${change.nextState.runtimeType}',
+  //     );
+  //   }
+  //   super.onChange(bloc, change);
+  // }
 
   @override
   void onError(BlocBase bloc, Object error, StackTrace stackTrace) {

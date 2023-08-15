@@ -5,14 +5,15 @@ import 'package:modern_pageable_listview/src/domain/entities/post_entity.dart';
 import 'package:modern_pageable_listview/src/domain/repositories/post_repository.dart';
 import 'package:result_dart/functions.dart';
 
-class MockPostRepository extends Mock implements IPostRepository {}
+import '../../mocks.dart';
+
 
 void main() {
   group('PostRepository', () {
-    late final int totalCount;
-    late final int pageSize;
-    late final IPostRepository repository;
-    late final Pageable<PostEntity> response;
+    late int totalCount;
+    late int pageSize;
+    late IPostRepository repository;
+    late Pageable<PostEntity> response;
     setUp(() {
       registerFallbackValue(PostEntity.fake());
       repository = MockPostRepository();
@@ -44,11 +45,11 @@ void main() {
       ); // Check if the returned page is correct
       expect(
         result.getOrThrow().pageSize,
-        10,
+        pageSize,
       ); // Check if the returned page size is correct
       expect(
         result.getOrThrow().totalCount,
-        20,
+        totalCount,
       ); // Check if the total count is correct
     });
 
@@ -62,10 +63,8 @@ void main() {
 
       // Assert
       expect(result.isError(), isTrue); // Check if the result is a failure
-      // expect(
-      //   result.fold().toString(),
-      //   'Exception: Out of range',
-      // );
+
+      // Check if the error is of type Exception
       result.fold((data) {}, (error) {
         expect(error, isA<Exception>());
       });

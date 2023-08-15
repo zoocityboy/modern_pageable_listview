@@ -2,7 +2,7 @@
 import 'package:equatable/equatable.dart';
 
 import '../../logic/cubit/page/page_cubit.dart';
-import '../../logic/cubit/pageable/pageable_list_cubit.dart';
+import '../typedef/loadcallback.dart';
 
 /// Pageable object for responses
 class Pageable<T> extends Equatable {

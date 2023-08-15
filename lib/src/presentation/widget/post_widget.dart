@@ -25,7 +25,7 @@ class PostWidget extends StatelessWidget {
           PageableListState<PostEntity>>(
         buildWhen: (previous, current) => previous != current,
         builder: (context, state) {
-          if (state is! PagableListLoaded<PostEntity>) {
+          if (state is! PageableListLoaded<PostEntity>) {
             return const PostLoadingTile();
           }
           logger.info(

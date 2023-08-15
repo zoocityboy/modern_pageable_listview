@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../core/logger.dart';
 import '../../domain/entities/post_entity.dart';
 import '../../domain/repositories/post_repository.dart';
 import '../../logic/cubit/pageable/pageable_list_cubit.dart';
@@ -18,7 +17,7 @@ class PostPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => PageableListCubit<PostEntity>(
-        callback: (page, limit) {
+        apiRequest: (page, limit) {
           return context.read<PostRepository>().list(page: page, limit: limit);
         },
       )..initialize(),
@@ -34,18 +33,16 @@ class PostPage extends StatelessWidget {
                     PageableListState<PostEntity>>(
                   buildWhen: (previous, current) => previous != current,
                   builder: (context, state) {
-                    logger
-                        .fine('PageableListCubit Build: ${state.runtimeType}');
                     return switch (state) {
-                      PagableListInitial() ||
-                      PagableListLoading() =>
+                      PageableListInitial() ||
+                      PageableListLoading() =>
                         LoadingPlaceholderWidget(
                           key: const Key('loading_placeholder'),
                           count: state.limit,
                         ),
-                      PagableListFailure(error: final error) =>
+                      PageableListFailure(error: final error) =>
                         Center(child: Text('Error $error')),
-                      PagableListLoaded(
+                      PageableListLoaded(
                         pages: final pages,
                         totalCount: final totalCount
                       ) =>
@@ -65,7 +62,6 @@ class PostPage extends StatelessWidget {
                                 itemCount: totalCount,
                                 findChildIndexCallback: (value) {
                                   final index = value as ValueKey<int>;
-                                  logger.fine('findChildIndexCallback: $index');
                                   return index.value;
                                 },
                               )
